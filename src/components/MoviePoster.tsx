@@ -8,7 +8,7 @@ const MoviePoster = ({ ...movie }: MoviePoster) => {
     <>
       <button
         onClick={() => null}
-        className="relative mx-auto aspect-[342/513] rounded border border-gray-500 shadow transition hover:border-green-500"
+        className="relative mx-auto aspect-[342/513] w-full rounded border border-gray-500 shadow transition hover:border-green-500"
       >
         <Image
           className="relative rounded"

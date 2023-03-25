@@ -15,7 +15,7 @@ const Pagination = ({
   isPreviousData,
 }: PaginationProps) => {
   return (
-    <div className="w-full justify-center">
+    <div className="w-full justify-center px-4">
       <ReactPaginate
         pageCount={totalPages > 500 ? 500 : totalPages}
         onPageChange={(event) => {

@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useState } from "react";
 
 import MoviePoster from "~/components/MoviePoster";
+import MoviePosterPlaceholder from "~/components/MoviePosterPlaceholder";
 import Pagination from "~/components/Pagination";
 import { api } from "~/utils/api";
 
@@ -26,9 +27,19 @@ const Home: NextPage = () => {
           {user.isSignedIn && <SignOutButton />}
           {!user.isSignedIn && <SignInButton />}
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {popularMoviesQuery.data?.results.map((movie) => (
-              <MoviePoster key={movie.id} {...movie} />
-            ))}
+            {popularMoviesQuery.isLoading || popularMoviesQuery.isFetching ? (
+              <>
+                {[...new Array(20).keys()].map((_, index) => (
+                  <MoviePosterPlaceholder key={index} />
+                ))}
+              </>
+            ) : (
+              <>
+                {popularMoviesQuery.data?.results.map((movie) => (
+                  <MoviePoster key={movie.id} {...movie} />
+                ))}
+              </>
+            )}
           </div>
           <div className="py-8">
             {popularMoviesQuery.data && (

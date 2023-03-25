@@ -1,14 +1,17 @@
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Head from "next/head";
+import { useState } from "react";
 
 import MoviePoster from "~/components/MoviePoster";
+import Pagination from "~/components/Pagination";
 import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
+  const [pageOffset, setPageOffset] = useState(0);
   const user = useUser();
   const popularMoviesQuery = api.tmdb.getPopularMovies.useQuery({
-    pageOffset: 0,
+    pageOffset,
   });
 
   return (
@@ -26,6 +29,16 @@ const Home: NextPage = () => {
             {popularMoviesQuery.data?.results.map((movie) => (
               <MoviePoster key={movie.id} {...movie} />
             ))}
+          </div>
+          <div className="py-8">
+            {popularMoviesQuery.data && (
+              <Pagination
+                pageOffset={pageOffset}
+                setPageOffset={setPageOffset}
+                isPreviousData={popularMoviesQuery.isPreviousData}
+                totalPages={popularMoviesQuery.data.total_pages}
+              />
+            )}
           </div>
         </div>
       </main>

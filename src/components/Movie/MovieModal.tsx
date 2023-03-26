@@ -40,7 +40,7 @@ const MovieModal = ({
 }: MovieModalProps) => {
   return (
     <Modal isVisible={isVisible} handleClose={handleClose}>
-      <Dialog.Panel className="w-full max-w-xl transform overflow-hidden bg-slate-900 text-left align-middle shadow-xl  transition-all sm:my-8 sm:mx-4 sm:rounded-lg">
+      <Dialog.Panel className="w-full max-w-xl transform overflow-hidden bg-slate-900 text-left align-middle shadow-xl transition-all sm:my-8 sm:mx-4 sm:rounded-lg">
         <CloseButton handleClose={handleClose} />
         <Dialog.Title className="relative flex h-32 items-center justify-center">
           <a

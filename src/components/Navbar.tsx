@@ -26,10 +26,10 @@ const Navbar = () => {
               value={query}
               onChange={(e) => setQuery(e.currentTarget.value)}
               placeholder="Search"
-              className="w-40 rounded-md border-2 border-slate-700 bg-slate-900 py-2 px-4"
+              className="w-48 rounded-md border-2 border-slate-700 bg-slate-900 py-2 px-4"
             />
           </form>
-          {user.isSignedIn ? (
+          {/* {user.isSignedIn ? (
             <SignOutButton>
               <SlLogout />
             </SignOutButton>
@@ -37,7 +37,7 @@ const Navbar = () => {
             <SignInButton>
               <SlLogin />
             </SignInButton>
-          )}
+          )} */}
         </div>
       </nav>
     </div>

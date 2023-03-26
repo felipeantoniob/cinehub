@@ -19,7 +19,7 @@
 <br />
 <div align="center">
 
-  <h1 align="center">CineHub</h1>
+  <h1 align="center">Cinehub</h1>
 
   <p align="center">
 Cinehub is a React TypeScript movie database app that allows users to search for and view movie details, using the TMDB API, with features such as pagination, error handling, and a responsive design.

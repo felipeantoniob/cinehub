@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-slate-900 text-slate-100;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: bg-slate-700 bg-slate-900;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: bg-slate-900;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: bg-slate-700;
+  border-radius: 20px;
+  border: 3px solid bg-slate-700;
+}

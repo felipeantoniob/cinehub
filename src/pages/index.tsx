@@ -27,7 +27,7 @@ const Home: NextPage = () => {
       <main className="flex min-h-screen flex-col bg-slate-900 text-white">
         <Navbar />
         <div className="mx-auto w-full max-w-7xl">
-          <div className="grid px-4 grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid grid-cols-2 gap-4 px-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {popularMoviesQuery.isLoading || popularMoviesQuery.isFetching ? (
               <>
                 {[...new Array(20).keys()].map((key) => (

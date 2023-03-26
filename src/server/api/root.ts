@@ -1,5 +1,5 @@
-import { createTRPCRouter } from "~/server/api/trpc";
-import { tmdbRouter } from "./routers/tmdb";
+import { createTRPCRouter } from '~/server/api/trpc'
+import { tmdbRouter } from './routers/tmdb'
 
 /**
  * This is the primary router for your server.
@@ -8,7 +8,7 @@ import { tmdbRouter } from "./routers/tmdb";
  */
 export const appRouter = createTRPCRouter({
   tmdb: tmdbRouter,
-});
+})
 
 // export type definition of API
-export type AppRouter = typeof appRouter;
+export type AppRouter = typeof appRouter

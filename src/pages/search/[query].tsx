@@ -1,23 +1,23 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
-import MoviePoster from "~/components/MoviePoster";
-import MoviePosterPlaceholder from "~/components/MoviePosterPlaceholder";
-import Navbar from "~/components/Navbar";
-import Pagination from "~/components/Pagination";
-import { api } from "~/utils/api";
+import MoviePoster from '~/components/Movie/MoviePoster'
+import MoviePosterPlaceholder from '~/components/Movie/MoviePosterPlaceholder'
+import Navbar from '~/components/Navbar'
+import Pagination from '~/components/Pagination'
+import { api } from '~/utils/api'
 
 const SearchResult = () => {
-  const router = useRouter();
-  const { query } = router.query;
-  const [pageOffset, setPageOffset] = useState(0);
+  const router = useRouter()
+  const { query } = router.query
+  const [pageOffset, setPageOffset] = useState(0)
   const searchMoviesQuery = api.tmdb.searchMovies.useQuery(
     {
       query: query as string,
       pageOffset,
     },
     { keepPreviousData: true, refetchOnWindowFocus: false }
-  );
+  )
 
   return (
     <main className="flex min-h-screen flex-col bg-slate-900 text-white">
@@ -48,7 +48,7 @@ const SearchResult = () => {
         </div>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default SearchResult;
+export default SearchResult

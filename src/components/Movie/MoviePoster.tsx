@@ -1,47 +1,41 @@
-import Image from "next/image";
-import { useState } from "react";
+import Image from 'next/image'
+import { useState } from 'react'
 
-import { POSTER_IMAGE_ENDPOINT } from "~/constants";
-import { Movie as MoviePoster } from "~/types";
-import { api } from "~/utils/api";
-import { getActors } from "~/utils/getActors";
-import { getDirectors } from "~/utils/getDirectors";
-import MovieModal from "./MovieModal";
-import Spinner from "./Spinner";
+import { POSTER_IMAGE_ENDPOINT } from '~/constants'
+import { Movie as MoviePoster } from '~/types'
+import { api } from '~/utils/api'
+import { getActors } from '~/utils/getActors'
+import { getDirectors } from '~/utils/getDirectors'
+import MovieModal from './MovieModal'
+import Spinner from '../Spinner'
 
 const QUERY_OPTIONS = {
   refetchOnWindowFocus: false,
   enabled: false,
-};
+}
 
 const MoviePoster = ({ ...movie }: MoviePoster) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [loadingMovieId, setLoadingMovieId] = useState<number | null>(null);
-  const movieDetailsQuery = api.tmdb.getMovieDetails.useQuery(
-    { movieId: movie.id },
-    QUERY_OPTIONS
-  );
-  const movieCreditsQuery = api.tmdb.getMovieCredits.useQuery(
-    { movieId: movie.id },
-    QUERY_OPTIONS
-  );
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [loadingMovieId, setLoadingMovieId] = useState<number | null>(null)
+  const movieDetailsQuery = api.tmdb.getMovieDetails.useQuery({ movieId: movie.id }, QUERY_OPTIONS)
+  const movieCreditsQuery = api.tmdb.getMovieCredits.useQuery({ movieId: movie.id }, QUERY_OPTIONS)
   const movieTrailersQuery = api.tmdb.getMovieTrailers.useQuery(
     {
       movieId: movie.id,
     },
     QUERY_OPTIONS
-  );
+  )
 
   const handlePosterClick = async (movieId: number) => {
-    setLoadingMovieId(movieId);
+    setLoadingMovieId(movieId)
     await Promise.allSettled([
       movieCreditsQuery.refetch(),
       movieDetailsQuery.refetch(),
       movieTrailersQuery.refetch(),
-    ]);
-    setLoadingMovieId(null);
-    setIsModalVisible(true);
-  };
+    ])
+    setLoadingMovieId(null)
+    setIsModalVisible(true)
+  }
 
   return (
     <>
@@ -51,7 +45,7 @@ const MoviePoster = ({ ...movie }: MoviePoster) => {
       >
         <Image
           className="relative rounded"
-          src={`${POSTER_IMAGE_ENDPOINT}${movie.poster_path ?? ""}`}
+          src={`${POSTER_IMAGE_ENDPOINT}${movie.poster_path ?? ''}`}
           alt={`${movie.title} poster`}
           width={342}
           height={513}
@@ -75,7 +69,7 @@ const MoviePoster = ({ ...movie }: MoviePoster) => {
           />
         )}
     </>
-  );
-};
+  )
+}
 
-export default MoviePoster;
+export default MoviePoster

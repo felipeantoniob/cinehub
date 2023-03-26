@@ -1,21 +1,21 @@
-import { type NextPage } from "next";
-import Head from "next/head";
-import { useState } from "react";
+import { type NextPage } from 'next'
+import Head from 'next/head'
+import { useState } from 'react'
 
-import MoviePoster from "~/components/MoviePoster";
-import MoviePosterPlaceholder from "~/components/MoviePosterPlaceholder";
-import Navbar from "~/components/Navbar";
-import Pagination from "~/components/Pagination";
-import { api } from "~/utils/api";
+import MoviePoster from '~/components/Movie/MoviePoster'
+import MoviePosterPlaceholder from '~/components/Movie/MoviePosterPlaceholder'
+import Navbar from '~/components/Navbar'
+import Pagination from '~/components/Pagination'
+import { api } from '~/utils/api'
 
 const Home: NextPage = () => {
-  const [pageOffset, setPageOffset] = useState(0);
+  const [pageOffset, setPageOffset] = useState(0)
   const popularMoviesQuery = api.tmdb.getPopularMovies.useQuery(
     {
       pageOffset,
     },
     { keepPreviousData: true, refetchOnWindowFocus: false }
-  );
+  )
 
   return (
     <>
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
         </div>
       </main>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

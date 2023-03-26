@@ -15,7 +15,7 @@ const SpinnerIcon = () => (
       fill="currentFill"
     />
   </svg>
-);
+)
 
 const Spinner = () => {
   return (
@@ -23,7 +23,7 @@ const Spinner = () => {
       <SpinnerIcon />
       <span className="sr-only">Loading...</span>
     </div>
-  );
-};
+  )
+}
 
-export default Spinner;
+export default Spinner

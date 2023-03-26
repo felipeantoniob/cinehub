@@ -1,17 +1,16 @@
-import { Dialog } from "@headlessui/react";
-import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
-import Image from "next/image";
-import Link from "next/link";
+import { Dialog } from '@headlessui/react'
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration'
+import Image from 'next/image'
 
-import { BACKDROP_IMAGE_ENDPOINT } from "~/constants";
-import type { MovieDetails } from "~/types";
-import type { Actors } from "~/utils/getActors";
-import type { Directors } from "~/utils/getDirectors";
-import ActorsCarousel from "./ActorsCarousel";
-import Modal from "./Modal";
+import { BACKDROP_IMAGE_ENDPOINT } from '~/constants'
+import type { MovieDetails } from '~/types'
+import type { Actors } from '~/utils/getActors'
+import type { Directors } from '~/utils/getDirectors'
+import Modal from '../Modal'
+import ActorsCarousel from './ActorsCarousel'
 
-dayjs.extend(duration);
+dayjs.extend(duration)
 
 const CloseButton = ({ handleClose }: { handleClose: () => void }) => (
   <button
@@ -20,16 +19,16 @@ const CloseButton = ({ handleClose }: { handleClose: () => void }) => (
   >
     ✕
   </button>
-);
+)
 
 type MovieModalProps = {
-  movieDetails: MovieDetails;
-  isVisible: boolean;
-  handleClose: () => void;
-  directors: Directors[];
-  actors: Actors[];
-  trailerId: string | null;
-};
+  movieDetails: MovieDetails
+  isVisible: boolean
+  handleClose: () => void
+  directors: Directors[]
+  actors: Actors[]
+  trailerId: string | null
+}
 
 const MovieModal = ({
   actors,
@@ -44,18 +43,18 @@ const MovieModal = ({
       <Dialog.Panel className="w-full max-w-xl transform overflow-hidden bg-slate-900 text-left align-middle shadow-xl  transition-all sm:my-8 sm:mx-4 sm:rounded-lg">
         <CloseButton handleClose={handleClose} />
         <Dialog.Title className="relative flex h-32 items-center justify-center">
-          <Link
-            href={`/movie/${movieDetails.id}`}
+          <a
+            href={`https://www.themoviedb.org/movie/${movieDetails.id}`}
             className="text-center text-xl text-slate-100"
           >
             {movieDetails.title}
             {movieDetails.release_date && (
               <span>
                 &nbsp;(
-                {dayjs(movieDetails.release_date, "YYYY-MM-DD").format("YYYY")})
+                {dayjs(movieDetails.release_date, 'YYYY-MM-DD').format('YYYY')})
               </span>
             )}
-          </Link>
+          </a>
           {movieDetails.backdrop_path && (
             <Image
               src={BACKDROP_IMAGE_ENDPOINT + movieDetails.backdrop_path}
@@ -94,9 +93,7 @@ const MovieModal = ({
               <div className="mb-4 flex-1">
                 <h3 className="text-md mb-2 text-slate-400">Release Date</h3>
                 <p className="text-sm text-slate-200">
-                  {dayjs(movieDetails.release_date, "YYYY-MM-DD").format(
-                    "MMMM D, YYYY"
-                  )}
+                  {dayjs(movieDetails.release_date, 'YYYY-MM-DD').format('MMMM D, YYYY')}
                 </p>
               </div>
             )}
@@ -106,7 +103,7 @@ const MovieModal = ({
               <div className="mb-4 flex-1">
                 <h3 className="text-md mb-2 text-slate-400">Genres</h3>
                 <p className="mb-2 text-sm text-slate-200">
-                  {movieDetails?.genres.map((genre) => genre.name).join(", ")}
+                  {movieDetails?.genres.map((genre) => genre.name).join(', ')}
                 </p>
               </div>
             )}
@@ -114,9 +111,7 @@ const MovieModal = ({
               <div className="mb-4 flex-1">
                 <h3 className="text-md mb-2 text-slate-400">Runtime</h3>
                 <p className="mb-2 text-sm text-slate-200">
-                  {dayjs
-                    .duration(movieDetails.runtime, "minutes")
-                    .format("H[h] mm[m]")}
+                  {dayjs.duration(movieDetails.runtime, 'minutes').format('H[h] mm[m]')}
                 </p>
               </div>
             )}
@@ -125,7 +120,7 @@ const MovieModal = ({
         </div>
         {trailerId && (
           <iframe
-            src={"https://www.youtube.com/embed/" + trailerId + "?rel=0"}
+            src={'https://www.youtube.com/embed/' + trailerId + '?rel=0'}
             title="YouTube video"
             allowFullScreen
             className="aspect-video w-full focus-visible:outline-none"
@@ -133,7 +128,7 @@ const MovieModal = ({
         )}
       </Dialog.Panel>
     </Modal>
-  );
-};
+  )
+}
 
-export default MovieModal;
+export default MovieModal

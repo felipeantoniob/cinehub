@@ -2,7 +2,12 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import type { MovieListResponse } from "~/types";
+import type {
+  MovieCredits,
+  MovieDetails,
+  MovieListResponse,
+  TrailerListResponse
+} from "~/types";
 
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY as string;
 const API_ORIGIN = "https://api.themoviedb.org";
@@ -33,6 +38,7 @@ export const tmdbRouter = createTRPCRouter({
       const data = (await response.json()) as MovieListResponse;
       return data;
     }),
+
   searchMovies: publicProcedure
     .input(z.object({ pageOffset: z.number(), query: z.string().min(1) }))
     .query(async ({ input }) => {
@@ -56,6 +62,78 @@ export const tmdbRouter = createTRPCRouter({
       }
 
       const data = (await response.json()) as MovieListResponse;
+      return data;
+    }),
+
+  getMovieDetails: publicProcedure
+    .input(z.object({ movieId: z.number() }))
+    .query(async ({ input }) => {
+      const { movieId } = input;
+
+      const movieDetailsPathname = `/3/movie/${movieId}`;
+
+      const params = new URLSearchParams({
+        api_key: API_KEY,
+      }).toString();
+
+      const endpoint = new URL(
+        `${API_ORIGIN}${movieDetailsPathname}?${params}`
+      );
+      const response = await fetch(endpoint);
+
+      if (!response.ok) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
+      }
+
+      const data = (await response.json()) as MovieDetails;
+      return data;
+    }),
+
+  getMovieCredits: publicProcedure
+    .input(z.object({ movieId: z.number() }))
+    .query(async ({ input }) => {
+      const { movieId } = input;
+
+      const movieCreditsPathname = `/3/movie/${movieId}/credits`;
+
+      const params = new URLSearchParams({
+        api_key: API_KEY,
+      }).toString();
+
+      const endpoint = new URL(
+        `${API_ORIGIN}${movieCreditsPathname}?${params}`
+      );
+      const response = await fetch(endpoint);
+
+      if (!response.ok) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
+      }
+
+      const data = (await response.json()) as MovieCredits;
+      return data;
+    }),
+
+  getMovieTrailers: publicProcedure
+    .input(z.object({ movieId: z.number() }))
+    .query(async ({ input }) => {
+      const { movieId } = input;
+
+      const movieTrailersPathname = `/3/movie/${movieId}/videos`;
+
+      const params = new URLSearchParams({
+        api_key: API_KEY,
+      }).toString();
+
+      const endpoint = new URL(
+        `${API_ORIGIN}${movieTrailersPathname}?${params}`
+      );
+      const response = await fetch(endpoint);
+
+      if (!response.ok) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
+      }
+
+      const data = (await response.json()) as TrailerListResponse;
       return data;
     }),
 });
